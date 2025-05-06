@@ -2151,10 +2151,10 @@ class ScaledBitmap(TextObjectMixin, DrawObject):
     def _Draw(self, dc , WorldToPixel, ScaleWorldToPixel, HTdc=None):
         XY = WorldToPixel(self.XY)
         H = ScaleWorldToPixel(self.Height)[0]
-        W = H * (self.bmpWidth / self.bmpHeight)
+        W = int(H * (self.bmpWidth / self.bmpHeight))
         if (self.ScaledBitmap is None) or (H != self.ScaledHeight) :
             self.ScaledHeight = H
-            Img = self.Image.Scale(int(W), int(H))
+            Img = self.Image.Scale(W, H)
             self.ScaledBitmap = wx.Bitmap(Img)
 
         XY = self.ShiftFun(XY[0], XY[1], W, H)
